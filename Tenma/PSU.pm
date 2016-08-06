@@ -32,13 +32,13 @@ sub setCurrent {
 sub getCurrent {
     my $self = shift;
     $self->swrite("ISET1?");
-    return $self->sread(5);
+    return $self->sread(5) - 0;
 }
 
 sub getActualCurrent {
     my $self = shift;
     $self->swrite("IOUT1?");
-    return $self->sread(5);
+    return $self->sread(5) - 0;
 }
 
 sub setVoltage {
@@ -51,13 +51,13 @@ sub setVoltage {
 sub getVoltage {
     my $self = shift;
     $self->swrite("VSET1?");
-    return $self->sread(5);
+    return $self->sread(5) - 0;
 }
 
 sub getActualVoltage {
     my $self = shift;
     $self->swrite("VOUT1?");
-    return $self->sread(5);
+    return $self->sread(5) - 0;
 }
 
 sub outputOn {
