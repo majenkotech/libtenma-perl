@@ -1,0 +1,18 @@
+libtenma-perl (0.0.2) unstable; urgency=low
+
+  * Added API overview
+
+ -- Matt Jenkins <matt@majenko.co.uk>  Sat, 6 Aug 2016 15:31:37 +0100
+
+libtenma-perl (0.0.1) unstable; urgency=low
+
+  * Added more examples
+
+ -- Matt Jenkins <matt@majenko.co.uk>  Sat, 6 Aug 2016 15:22:04 +0100
+
+libtenma-perl (0.0.0) unstable; urgency=low
+
+  * Initial import
+
+ -- Matt Jenkins <matt@majenko.co.uk>  Fri, 5 Aug 2016 15:48:59 +0100
+
