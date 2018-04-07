@@ -13,13 +13,15 @@ sub new {
 sub connect {
     my $self = shift;
     my $path = shift;
+    $self->{path} = $path;
     $self->{port} = new Device::SerialPort($path);
 
     if (!$self->{port}) {
-        die("Unable to open " . $path . ": $!");
+        return 0;
     }
 
     $self->{port}->baudrate(9600);
+    return 1;
 }
 
 sub setCurrent {
@@ -130,6 +132,11 @@ sub ocpOff {
 sub swrite {
     my $self = shift;
     my $data = shift;
+    if (!$self->{port}) {
+        if (!$self->connect($self->{path})) {
+            return;
+        }
+    }
     $self->{port}->read(255);
     $self->{port}->write($data);
     usleep(50000);
@@ -138,9 +145,27 @@ sub swrite {
 sub sread {
     my $self = shift;
     my $len = shift;
+    if (!$self->{port}) {
+        if (!$self->connect($self->{path})) {
+            return "";
+        }
+    }
     my $data = "";
     my $count = 0;
+    my $now = time();
     while ($count < $len) {
+        if (!$self->{port}) {
+            if (!$self->connect($self->{path})) {
+                print "Unable to connect\n";
+                return "";
+            }
+        }
+        if (time() - $now > 5) {
+            $self->{port}->close();
+            if (!$self->connect($self->{path})) {
+                return "";
+            }
+        }
         my ($c, $d) = $self->{port}->read(1);
         if ($c > 0) {
             $count += $c;
